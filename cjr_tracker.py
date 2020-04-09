@@ -31,7 +31,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.1.2'
+__version__ = 'v1.1.3'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -262,8 +262,7 @@ class Tracker(cmdr.Cmdr):
 	"""
 
 	aliases = {'ls': 'list', 'q': 'quit', 't': 'tag', 'u': 'update', 'v': 'view'}
-	intro = '\nWelcome to the r/CriminalJusticeReform tracking application.'
-	prompt = '\ntracker >> '
+	prompt = 'tracker >> '
 
 	def do_list(self, arguments):
 		"""
@@ -297,6 +296,7 @@ class Tracker(cmdr.Cmdr):
 		if arguments.lower() in ('ns', 'no-save'):
 			self.post_changes = False
 			self.tag_changes = False
+		self.silent = True
 		return True
 
 	def do_save(self, arguments):
@@ -415,23 +415,26 @@ class Tracker(cmdr.Cmdr):
 		Processing done before the application is closed. (None)
 		"""
 		self.do_save('')
-		print('\nHave a nice day.')
+		print('Have a nice day.')
 
 	def preloop(self):
 		"""
 		Processing done when the application is started. (None)
 		"""
+		print('\nWelcome to the r/CriminalJusticeReform tracking application.')
 		self.silent = False
 		self.post_changes = False
 		self.tag_changes = False
 		self.current = None
 		self.update = False
-		print('Accessing Reddit ...')
+		print('\nAccessing Reddit ...')
 		self.reddit = load_reddit()
 		print('Loading stored data ...')
 		self.local_posts = load_local()
 		print('Loading Reddit data ...')
 		self.new_posts = check_cjr(self.reddit, current = self.local_posts)
+		print(self.status())
+		print()
 
 	def save_posts(self):
 		"""Save the post data. (None)"""
