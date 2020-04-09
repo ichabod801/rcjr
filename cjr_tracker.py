@@ -31,7 +31,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.1.3'
+__version__ = 'v1.2.0a1'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -101,7 +101,8 @@ class Post(object):
 		Human readable text representation. (str)
 		"""
 		text = '{}  {:<16}  {:<8}  {:<36}  {:>4}'
-		return text.format(self.reddit_id, self.poster[:16], self.date, self.title[:36], self.score)
+		date_text = self.date.strftime('%m/%d/%y')
+		return text.format(self.reddit_id, self.poster[:16], date_text, self.title[:36], self.score)
 
 	def _from_line(self, line):
 		"""
@@ -251,6 +252,8 @@ class Tracker(cmdr.Cmdr):
 	do_tag: Add one or more tags to the current post. (None)
 	do_update: Turn update mode on or off. (None)
 	do_view: View a post, either by local_id or reddit_id. (None)
+	list_posts: Display a list of local Post objects. (None)
+	list_submissions: Display a list of Reddit Submission objects. (None)
 	save_posts: Save the post data. (None)
 	save_tags: Save the tag data. (None)
 	update_check: Check if it is valid to update the current record. (bool)
@@ -273,10 +276,11 @@ class Tracker(cmdr.Cmdr):
 		"""
 		arguments = arguments.lower()
 		if arguments == 'new':
-			text = '{}  {:<16}  {:<8}  {:<36}  {:>4}'
-			for post in self.new_posts:
-				date_text = dt.datetime.fromtimestamp(post.created_utc).strftime('%m/%d/%y')
-				print(text.format(post.id, str(post.author), date_text, post.title[:36], post.score))
+			self.list_submissions(self.new_posts)
+		else:
+			data = [self.local_posts[post_id] for post_id in range(1, Post.num_posts + 1)]
+			# Eventually there will be filters here.
+			self.list_posts(data[:25])
 
 	def do_note(self, arguments):
 		"""
@@ -388,6 +392,28 @@ class Tracker(cmdr.Cmdr):
 		else:
 			print(post.details())
 			self.current = post
+
+	def list_posts(self, posts):
+		"""
+		Display a list of local Post objects. (None)
+
+		Parameters:
+		posts: The data to display. (list of Post)
+		"""
+		for post in posts:
+			print(post)
+
+	def list_submissions(self, submissions):
+		"""
+		Display a list of Reddit Submission objects. (None)
+
+		Parameters:
+		submissions: The data to display. (list of praw.Submission)
+		"""
+		text = '{}  {:<16}  {:<8}  {:<36}  {:>4}'
+		for post in submissions:
+			date_text = dt.datetime.fromtimestamp(post.created_utc).strftime('%m/%d/%y')
+			print(text.format(post.id, str(post.author), date_text, post.title[:36], post.score))
 
 	def postcmd(self, stop, line):
 		"""
