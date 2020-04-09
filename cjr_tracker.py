@@ -4,7 +4,6 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-github
 scan other subs
 reload reddit data
 
