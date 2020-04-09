@@ -29,9 +29,12 @@ import webbrowser
 
 import cmdr
 
+__author__ = 'Craig "Ichabod" O\'Brien'
+
+__version__ = 'v1.1.2'
+
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
-	'password': 'Ritual#85', 'user_agent': 'windows:cjr_tracker:v1.1.1 (by u/ichabod801)',
-	'username': 'ichabod801'}
+	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
 
 DATA_START = dt.datetime(2020, 4, 1)
 
@@ -534,7 +537,6 @@ def load_local():
 				continue
 			post_id, tag = line.strip().split('\t')
 			posts[int(post_id)].add_tag(tag, force = True)
-	print()
 	return posts
 
 def load_reddit(read_only = False, **kwargs):
@@ -547,9 +549,9 @@ def load_reddit(read_only = False, **kwargs):
 	"""
 	access = ACCESS_KWARGS.copy()
 	access.update(kwargs)
-	if read_only:
-		del access['username']
-		del access['password']
+	if not read_only:
+		access['username'] = input('User name? ')
+		access['password'] = input('Password? ')
 	reddit = praw.Reddit(**access)
 	return reddit
 
