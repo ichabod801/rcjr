@@ -1,0 +1,188 @@
+Reddit CJR
+----------
+
+A new idea hit me this evening (4/2/20) pacing around before doing some dishes. There is a subreddit named r/CriminalJusticeReform. I have posted there before. It's not very active, and neither is the moderator (u/scottindy). The idea was to take it over and post articles there. Then I could create a wiki for the subreddit, and make it a resource for criminal justice reform work. I could promote the subreddit on reddit and elsewhere, making it a clearinghouse for CJR news.
+
+## Pros and Cons ##
+
+Pros:
+
+	* It has a pre-built infrastructure for posting articles, drastically reducing overhead.
+	* It has a pre-built infrastructure for a wiki.
+	* It has built-in foot traffic. It would be like being a small store in a huge shopping mall.
+	* It would give me a chance to work on online arguments.
+
+Cons:
+
+	* The search functionality is crap, so it won't be as good as a real database.
+	* Reddit is, in many ways, a cesspool.
+
+## The Plan ##
+
+### Phase 1 ###
+
+Start posting on r/CriminalJusticeReform. Much like what I am doing on MAJR's Facebook page. Maybe expand my google searches to get broader content. This can also be a dry run for the plan, before I commit to anything.
+
+Keep track of the posts. Not just mine, either. But track all of the posts, see what's getting comments and what's getting upvoted. I started a spreadsheet on all of the posts since 4/1/2020.
+
+Also make positive comments on any posts that others make. Get comments on the board to get people reading them, and give positive feedback to build community.
+
+At the same time, learn reddit. Maybe even get a subscription as part of my charity budget. But definitely delve into how reddit works, and how I can use that in building the subreddit. For example, I made three posts the first day, but only two of them showed up. Is there a post limit? What is it? As for joining, it's $6 a month, and gives me coins that might be helpful in building the community.
+
+#### How to Post ####
+
+One of my first posts didn't go through. Why is not clear, but it could be because I was posting too fast, which is bad reddiquette. I should adopt good redidiquette if I am going to be a serious redditor. So I need to change my posting strategy from all at one time during the day. I should set up different times to post. I think for the first week I am going to limit myself to one post at my normal posting time. Then in the second week, do two posts a day, but one in the evening. After that, consider adding a third posting time.
+
+Note that it's looking like the third post was caught by an automated filter, I'm guessing based on Trump being in the headline.
+
+#### Reddit API ####
+
+I can access the reddit API in Python using just the requests module (plus json if we want). For example:
+
+```python
+req = requests.get(r'http://www.reddit.com/user/ichabod801/comments/.json')
+data = req.json()
+```
+
+The dictionary data will then have the output of the API request. Be carefule. There [are rules](https://github.com/reddit-archive/reddit/wiki/API), and it's not clear that plain requests follow them. "Many default User-Agents (like 'Python/urllib' or 'Java') are drastically limited to encourage unique and descriptive user-agent strings."
+
+Simple requests isn't working as above. I'm getting a too many requests error. I don't know if I can make requests use the required OAuth2 authentication. Reddit has a bunch of information on OAuth2 on their API page. Start there. Or look into the Python wrappers for the API. That may be a simpler route than trying to figure things out myself, and not-figuring-things-out-myself was supposed to be an advantage of using reddit. Indeed, it seems PRAW is the main Python package for this, and has a nice quick start guide. Use that.
+
+Note that there might be more I can do here, like searching reddit for posts mentioning Criminal Justice Reform keywords.
+
+##### Reddit Apps #####
+
+cjr_tracker; client ID = jy2JWMnhs2ZrSA; client secret = LsnszIp9j_vVl9cvPDbEPemdyCg
+
+### Phase 2 ### 
+
+Once I have established myself there (at least two weeks, maybe a month), message u/scottindy and try to become a moderator. Pitch the posts I've been doing, the work I've done for MAJR, my plans for the wiki. Shoot for taking over the sub completely, but settle for being on the mod team. He hasn't posted in four month (and he has way less karma than I do), so it may take some prodding, and it may even take going around his back. But get on the mod team.
+
+If all else fails, start my own community.
+
+### Phase 3 ### 
+
+Once I become a moderator, work on the subreddit. Make it a place people have a reason to go to. I may get some resistance if scottindy wants to remain a moderator at that point, but do what you can. The main thing I want to do is add a wiki, but don't ignore the rest of the sub.
+
+#### Wiki ####
+
+Start working on the wiki. The main idea is to give a general overview of Criminal Justice Reform, such as the problems that have been identified and the solutions people are trying to implement. There could also be pages on CJR organizations and resources, and maybe people involved in criminal justice reform. In this phase, don't look to finish it, look to start it. Think especially about how to organize it, and organize it in a way that it can grow.
+
+* Main Page: Why Reform? and Table of Contents
+	* Issues
+		* Policing
+			* Racial Bias
+			* Excessive Force
+				* Police Shootings
+				* Militarization
+			* Lack of Accountability
+				* Internal Investigations
+				* Lack of Perjury Tracking
+		* Courts
+			* Racial Bias
+				* Excessive Charges
+				* Jury Stacking
+			* Bail and Fines
+				* Plea Barganing
+			* Death Penalty
+				* Racial Bias
+		* Prisons
+			* Prison Labor
+			* Prison Medicine
+			* Solitary Confinement
+			* Lack of Rehabilitation
+			* Abolition Movement
+		* Reentry
+			* Collateral Consequences
+				* Housing
+				* Jobs
+					* Certification
+				* Education
+			* Recidivism
+				* Smart on Crime vs. Tough on Crime
+		* Juvenile Justice
+		* War on Drugs
+			* Racial Bias
+				* Haddleman and Atwater
+				* Incarceration Disparities
+			* Comparison with Alcohol
+			* Cost vs. Success
+	* Resources
+		* Organizations
+			* Service Organizations
+				* [American Freedom Initiative](usfreedominitiative.com)
+				* [CAN-DO Foundation](candoclemency.com)
+			* Other Organizations
+				* [Collateral Consequences Resource Center](ccresourcecenter.org) ?? maybe service?
+				* [The Marshall Project](themarshallproject.org)
+				* [The Sentencing Project](???)
+		* Reading List
+		* What Can I Do?
+			* Vote
+				* Most changes are through legislation
+				* Vote local, prosecutors have a huge effect on things. Judges and Sheriffs too.
+			* Inform yourself about the issues.
+				* See the reading list.
+			* Organize.
+				* Get like minded people together to act in concert.
+			* Lobby.
+				* Pay attention to criminal justice related bills, contact your legislators.
+			* Amelliorate
+				* Work with service organizations to help counteract what is going on.
+			* Teach
+				* Spread the word. A lot of this is a cultural paradigm of retribution. Shift that to rehabilitation.
+			* E-Something
+				* Because then it will spell VIOLATE.
+
+#### Everything Else ####
+
+Here are some ideas on upgrading the rest of the site:
+
+	* Make a new moderator post, soliciting suggestions.
+	* Figure out a way to implement a death sentence watch.
+		* This should be doable with a series of stickies.
+		* deathpenaltyinfo.org has a mailing list.
+	* Make a new logo, like a snoo behind or breaking bars.
+	* Get some images across the top.
+	* See if I can get thumbnails for the posts. (or is that a user setting?)
+	* Note that one of the rules of rediquette is to follow the rules of the community. r/CJR doesn't have any rules.
+	* Add a list of sister subs:
+		r/abolish
+		r/Bad_Cop_No_Donut
+		r/civilliberties
+		r/policeaccountability2
+		r/prisonreform
+	* Rather than spam r/CJR with posts, create r/CJRData, which has tons of posts but only articles.
+		* Tag them all in my tracker.
+		* Make the tracking data public.
+		* Write a python app for the tracker so that researchers can use it.
+		* Then I've got the database I wanted in the first place.
+			* Check the TOS and make sure this isn't a violation.
+	* I could front the money for SMMRY and summarize a lot of the posts on the site.
+
+Abandoned ideas:
+
+	* Get rid of downvotes (if I can find the study saying that makes for an echo chamber).
+		* Aparently you can only get rid of it with css, which only applies to the desktop version.
+		* Even on desktop, RES users can use a keyboard shortcut to downvote (z).
+		* So, in the end, this is not part of the plan.
+
+##### Down Vote Studies #####
+
+Machnik, Aral, Taylor; Social Infuence Bias: A Randomized Experiment; Science 09Aug2013: An early upvote leads to a 25% increase in score, but any early downvote does not have much of an effect.
+
+Cheng, Danescu, Leskovic; How Community Feedback Shapes User Behavior; Publication Unclear (https://arxiv.org/pdf/1405.1429.pdf); Negative feedback leads to more posting of lower quality and more negative feedback. Positive feedback has no effect. Lack of feedback leads to people leaving the community.
+
+Anecdotal: Removing downvotes leads to more brigading.
+
+Anecdotal: Restricting posting based on age or karma score cut down on rule-breaking a lot in r/nosleep.
+
+Anecdotal: Removing downvotes leads to fewer upvotes.
+
+### Phase 4 ### 
+
+Promote the subreddit and continue to work on the wiki. I'm not sure how this would be done. Maybe crossposting with r/Politics and/or r/News? I'm sure someone has put thought into this and I can find some resources online.
+
+### Phase 5 ### 
+
+Review the work done so far and make a new plan for the future.
