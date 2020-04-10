@@ -36,7 +36,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.2.1'
+__version__ = 'v1.2.2'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -641,10 +641,7 @@ def load_reddit(read_only = False, **kwargs):
 	"""
 	access = ACCESS_KWARGS.copy()
 	access.update(kwargs)
-	if not read_only:
-		access['username'] = input('User name? ')
-		access['password'] = input('Password? ')
-	reddit = praw.Reddit(**access)
+	reddit = praw.Reddit('main_user', **access)
 	return reddit
 
 if __name__ == '__main__':
