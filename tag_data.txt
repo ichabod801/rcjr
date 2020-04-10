@@ -47,3 +47,10 @@ post_id	tag
 14	news
 15	violent-crimes
 15	academic
+16	florida
+16	collateral-consequences
+16	voting-rights
+16	news
+17	tennessee
+17	early-release
+17	covid-19

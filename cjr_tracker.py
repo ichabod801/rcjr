@@ -4,8 +4,11 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-scan other subs
+password persistence.
+fix list_sub long usernames.
+open reddit submissions
 reload reddit data
+persistent data lists
 
 Constants:
 ACCESS_KWARGS: The standard access credentials. (dict of str: str)
@@ -18,12 +21,14 @@ Tracker: An interface for tracking r/CriminalJusticeReform. (cmdr.Cmdr)
 Functions:
 check_cjr: Check for new posts in r/CriminalJusticeReform. (list of Submission)
 levenshtein: Determine the Levenshtein distance between two strings. (int)
+load_keywords: Load the key words for subreddit scanning. (set of str)
 load_local: Load the local data. (dict)
 load_reddit: Open a line into Reddit. (praw.Reddit)
 """
 
 import datetime as dt
 import praw
+import re
 from urllib.parse import urlparse
 import webbrowser
 
@@ -31,7 +36,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.2.0a1'
+__version__ = 'v1.2.0'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -266,6 +271,7 @@ class Tracker(cmdr.Cmdr):
 
 	aliases = {'ls': 'list', 'q': 'quit', 't': 'tag', 'u': 'update', 'v': 'view'}
 	prompt = 'tracker >> '
+	word_re = re.compile('\w+')
 
 	def do_list(self, arguments):
 		"""
@@ -319,6 +325,52 @@ class Tracker(cmdr.Cmdr):
 			self.save_tags()
 			print('Tag data saved.')
 			self.tag_changes = False
+
+	def do_scan(self, arguments):
+		"""
+		Scan another subreddit for potential articles.
+
+		The first argument should be the name of the subreddit (no spaces). A second
+		argument is allowed, it should be the number of records to check (defaults
+		to 100).
+		"""
+		# parse the arguments.
+		args = arguments.split()
+		if len(args) == 1:
+			# default limit.
+			args.append(100)
+		elif len(args) > 2:
+			# invalid number of arguments.
+			print('The scan command takes one or two arguments.')
+			return False
+		else:
+			# parse limit
+			try:
+				args[1] = int(args[1])
+			except ValueError:
+				print(f'Invalid number of records: {args[1]}.')
+				return False
+		sub_name, limit = args
+		# Get the subreddit.
+		try:
+			sub = self.reddit.subreddit(sub_name)
+			# Get the posts with a keyword in the title.
+			matches = []
+			for post in sub.new(limit = limit):
+				match = self.keywords.intersection(self.word_re.findall(post.title))
+				if match:
+					matches.append((len(match), post))
+			# Sort and display by the number of keyword matches.
+			if matches:
+				matches.sort(key = lambda m: (m[0], m[1].title), reverse = True)
+				self.list_submissions([post for match, post in matches])
+			else:
+				# Note that their were no matches.
+				print('No articles were found with keywords in the title.')
+		except praw.exceptions.PRAWException:
+			# Notify about PRAW Errors.
+			print('Error connecting to the subreddit.')
+			print('Either the subreddit is invalid or access was denied.')
 
 	def do_tag(self, arguments):
 		"""
@@ -457,6 +509,7 @@ class Tracker(cmdr.Cmdr):
 		self.reddit = load_reddit()
 		print('Loading stored data ...')
 		self.local_posts = load_local()
+		self.keywords = load_keywords()
 		print('Loading Reddit data ...')
 		self.new_posts = check_cjr(self.reddit, current = self.local_posts)
 		print(self.status())
@@ -547,6 +600,16 @@ def levenshtein(text_a, text_b):
 			matrix[x][y] = min(base)
 	# Return the final value.
 	return matrix[-1][-1]
+
+def load_keywords():
+	"""
+	Load the key words for subreddit scanning. (set of str)
+	"""
+	keywords = set()
+	with open('keywords.txt') as word_file:
+		for line in word_file:
+			keywords.add(line.strip())
+	return keywords
 
 def load_local():
 	"""
