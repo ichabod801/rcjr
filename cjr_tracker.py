@@ -4,8 +4,6 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-fix list_sub long usernames. (use 108 width)
-open reddit submissions
 reload reddit data
 persistent data lists
 
@@ -35,7 +33,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.2.3'
+__version__ = 'v1.3.0'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -52,7 +50,7 @@ class Post(object):
 
 	Attributes:
 	comments: The number of comments the post received. (int)
-	date: The dat the post was submitted. (dt.datetime)
+	date: The date the post was submitted. (dt.datetime)
 	notes: Any moderator notes made on the post. (str)
 	per_up: The percentage upvoted for the post. (float)
 	post_id: The local post identifier. (int)
@@ -294,6 +292,33 @@ class Tracker(cmdr.Cmdr):
 		if self.update_check():
 			self.current.add_note(arguments)
 			self.post_changes = True
+
+	def do_open(self, arguments):
+		"""
+		Open a Reddit post in the browser.
+
+		The argument should be a Reddit ID or a local post ID. This opens the post on
+		Reddit. If a second argument of 'link' is provided, the linked web page is
+		opened instead.
+		"""
+		# Parse the arguments.
+		post_id, space, link = arguments.partition(' ')
+		link = link.lower() == 'link'
+		if len(post_id) < 6 and post_id.isdigit():
+			post_id = self.local_posts[int(post_id)].reddit_id
+		# Determine the URL.
+		url = 'n/a'
+		# URLs of source documents.
+		submission = self.reddit.submission(id = post_id)
+		if link:
+			url = submission.url
+		else:
+			url = f'https://reddit.com{submission.permalink}'
+		# Open it up.
+		if url == 'n/a':
+			print('The URL for that post is not available.')
+		else:
+			webbrowser.open(url)
 
 	def do_quit(self, arguments):
 		"""
