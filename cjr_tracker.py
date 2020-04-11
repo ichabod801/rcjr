@@ -4,8 +4,7 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-password persistence.
-fix list_sub long usernames.
+fix list_sub long usernames. (use 108 width)
 open reddit submissions
 reload reddit data
 persistent data lists
@@ -36,7 +35,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.2.2'
+__version__ = 'v1.2.3'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -105,9 +104,9 @@ class Post(object):
 		"""
 		Human readable text representation. (str)
 		"""
-		text = '{}  {:<16}  {:<8}  {:<36}  {:>4}'
+		text = '{}  {:<20}  {:<8}  {:<52}  {:>4}'
 		date_text = self.date.strftime('%m/%d/%y')
-		return text.format(self.reddit_id, self.poster[:16], date_text, self.title[:36], self.score)
+		return text.format(self.reddit_id, self.poster[:20], date_text, self.title[:52], self.score)
 
 	def _from_line(self, line):
 		"""
@@ -462,10 +461,10 @@ class Tracker(cmdr.Cmdr):
 		Parameters:
 		submissions: The data to display. (list of praw.Submission)
 		"""
-		text = '{}  {:<16}  {:<8}  {:<36}  {:>4}'
+		text = '{}  {:<20}  {:<8}  {:<51}  {:>5}'
 		for post in submissions:
 			date_text = dt.datetime.fromtimestamp(post.created_utc).strftime('%m/%d/%y')
-			print(text.format(post.id, str(post.author), date_text, post.title[:36], post.score))
+			print(text.format(post.id, str(post.author)[:20], date_text, post.title[:51], post.score))
 
 	def postcmd(self, stop, line):
 		"""
