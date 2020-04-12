@@ -4,7 +4,7 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-reload reddit data
+stop double printing with view and update
 persistent data lists
 
 Constants:
@@ -33,7 +33,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.3.0'
+__version__ = 'v1.4.0'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -285,6 +285,17 @@ class Tracker(cmdr.Cmdr):
 			# Eventually there will be filters here.
 			self.list_posts(data[:25])
 
+	def do_load(self, arguments):
+		"""
+		Load (reload) data.
+
+		If no argument is passed or the argument is r, red, or reddit, this reloads
+		the new reddit data.
+		"""
+		if arguments.lower() in ('', 'r', 'red', 'reddit'):
+			print('Loading Reddit data ...')
+			self.new_posts = check_cjr(self.reddit, current = self.local_posts)
+
 	def do_note(self, arguments):
 		"""
 		Add a note to the current post. (n)
@@ -534,8 +545,7 @@ class Tracker(cmdr.Cmdr):
 		print('Loading stored data ...')
 		self.local_posts = load_local()
 		self.keywords = load_keywords()
-		print('Loading Reddit data ...')
-		self.new_posts = check_cjr(self.reddit, current = self.local_posts)
+		self.do_load('reddit')
 		print(self.status())
 		print()
 

@@ -1,7 +1,7 @@
 post_id	red_id	date	source	poster	title	score	per	com	notes
 1	ftyzd7	04/03/2020	newrepublic.com	ichabod801	Policing and the English Language	1	1.0	0	
 2	fu4os6	04/03/2020	self	Small-Praline	Going back to jail	1	0.99	2	
-3	fuaarr	04/03/2020	gothamgazette.com	ichabod801	Bail Reform Rollbacks are a Dangerous Failing of Moral Courage	4	1.0	0	
+3	fuaarr	04/03/2020	gothamgazette.com	ichabod801	Bail Reform Rollbacks are a Dangerous Failing of Moral Courage	5	0.84	0	
 4	fuaki1	04/03/2020	washingtonpost.com	ichabod801	"Kim Kardashian West on coronavirus, criminal justice reform and working with Trump"	1	1.0	1	"not posting, why?"
 5	fuv7tj	04/04/2020	ctmirror.org	ichabod801	ACLU of CT Sues to Reduce Prison Population to Prevent the Spread of COVID-19	1	1.0	0	
 6	fv4lrp	04/04/2020	ncbusinessdaily	ak321836	"Shanita McKnight, former cop jailed for drug crimes, seeks Presidential clemency"	1	1.0	0	
@@ -10,9 +10,12 @@ post_id	red_id	date	source	poster	title	score	per	com	notes
 9	fvg0d8	04/05/2020	themarshallproject.org	ichabod801	Coronavirus Ended His Shot at a Second Chance.	1	1.0	0	
 10	fvqw8i	04/05/2020	www.reddit.com	Crondeau04	I want to get justice for Ricky Jackson and all those who have been affected from unfair laws. I just started a petition to change things. Will you stand with me? Please sign, and share with all your friends!!	0	0.5	0	
 11	fw01h4	04/06/2020	www.recorder.com	ichabod801	Netflix series to spotlight Massachusetts’s drug lab scandals	1	1.0	0	
-12	fwmtwz	04/07/2020	www.abc4.com	ichabod801	Jay-Z and Meek Mill's REFORM alliance donating 100,000 masks to prisons	5	1.0	0	
+12	fwmtwz	04/07/2020	www.abc4.com	ichabod801	Jay-Z and Meek Mill's REFORM alliance donating 100,000 masks to prisons	4	0.84	0	
 13	fww9hb	04/07/2020	www.washingtonpost.com	ichabod801	Federal executions can resume, but not just yet, divided appeals court rules	2	1.0	0	
 14	fx7s3g	04/08/2020	www.themarshallproject.org	ichabod801	COVID-19 Small Business Relief not Available to Owners with Criminal Records	2	1.0	1	
 15	fx7zic	04/08/2020	www.prisonpolicy.org	kclovesbeer	Reforms Without Results: Why states should stop excluding violent offenses from criminal justice reforms	3	1.0	2	
 16	fxungj	04/09/2020	www.washingtonpost.com	ichabod801	Federal judge expands voting decision to apply to all ex-felons in Florida	6	1.0	1	
-17	fyhpzb	04/10/2020	www.tennessean.com	ichabod801	COVID-19 leads to 'hyper-acceleration' of some criminal justice reforms in Tennessee	1	1.0	1	
+17	fyhpzb	04/10/2020	www.tennessean.com	ichabod801	COVID-19 leads to 'hyper-acceleration' of some criminal justice reforms in Tennessee	5	0.84	1	
+18	fyqfvu	04/10/2020	www.washingtonpost.com	ichabod801	Inside the deadliest federal prison, the seeping coronavirus creates fear and danger	1	1.0	1	
+19	fz822d	04/11/2020	thecrimereport.org	ichabod801	Colorado’s Death Penalty Repeal: How It Happened—and Why	1	1.0	0	
+20	fzyaqj	04/12/2020	news3lv.com	ichabod801	Battle over drugs for Nevada execution ends with no decision	1	1.0	1	

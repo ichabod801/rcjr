@@ -54,3 +54,11 @@ post_id	tag
 17	tennessee
 17	early-release
 17	covid-19
+18	federal
+18	inside-health
+18	covid-19
+19	colorao
+19	death-penalty
+19	success
+20	nevada
+20	death-penalty
