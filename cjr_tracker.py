@@ -5,6 +5,10 @@ A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
 persistent data lists
+	alphabetical indexes/viewing by
+	pagination info
+	pagination commands
+	set command for changing tracking variables
 expanded valid tags
 required tag checking
 
@@ -34,7 +38,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.4.1'
+__version__ = 'v1.5.0'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -105,7 +109,7 @@ class Post(object):
 		"""
 		text = '{}  {:<20}  {:<8}  {:<48}  {:>4}'
 		date_text = self.date.strftime('%m/%d/%y')
-		return text.format(self.reddit_id, self.poster[:20], date_text, self.title[:52], self.score)
+		return text.format(self.reddit_id, self.poster[:20], date_text, self.title[:48], self.score)
 
 	def _from_line(self, line):
 		"""
@@ -276,15 +280,30 @@ class Tracker(cmdr.Cmdr):
 		List the specified posts. (ls)
 
 		Arguments include:
-			new: List the new posts that have not be coded.
+			new (n): List the new posts that have not be coded.
+			local (loc, l): List the locally coded posts.
+
+		If neither new or local is given as an argument, the last listing is reshown.
 		"""
 		arguments = arguments.lower()
-		if arguments == 'new':
+		if arguments in ('n', 'new'):
 			self.list_submissions(self.new_posts)
-		else:
+			self.current_list = self.new_posts
+			self.current_index = 0
+		elif arguments in ('l', 'loc', 'local'):
 			data = [self.local_posts[post_id] for post_id in range(1, Post.num_posts + 1)]
 			# Eventually there will be filters here.
-			self.list_posts(data[:25])
+			self.list_posts(data[:self.page_size])
+			self.current_list = data
+			self.current_index = 0
+		else:
+			page = slice(self.current_index, (self.current_index + self.page_size))
+			if not self.current_list:
+				self.do_list('local')
+			elif isinstance(self.current_list[0], Post):
+				self.list_posts(self.current_list[page])
+			else:
+				self.list_submissions(self.current_list[page])
 
 	def do_load(self, arguments):
 		"""
@@ -502,7 +521,7 @@ class Tracker(cmdr.Cmdr):
 		text = '{}  {:<20}  {:<8}  {:<47}  {:>5}'
 		for post in submissions:
 			date_text = dt.datetime.fromtimestamp(post.created_utc).strftime('%m/%d/%y')
-			print(text.format(post.id, str(post.author)[:20], date_text, post.title[:51], post.score))
+			print(text.format(post.id, str(post.author)[:20], date_text, post.title[:47], post.score))
 
 	def postcmd(self, stop, line):
 		"""
@@ -542,6 +561,9 @@ class Tracker(cmdr.Cmdr):
 		self.tag_changes = False
 		self.current = None
 		self.update = False
+		self.current_list = []
+		self.current_index = 0
+		self.page_size = 15
 		print('\nAccessing Reddit ...')
 		self.reddit = load_reddit()
 		print('Loading stored data ...')
