@@ -4,8 +4,9 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-stop double printing with view and update
 persistent data lists
+expanded valid tags
+required tag checking
 
 Constants:
 ACCESS_KWARGS: The standard access credentials. (dict of str: str)
@@ -33,7 +34,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.4.0'
+__version__ = 'v1.4.1'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -102,7 +103,7 @@ class Post(object):
 		"""
 		Human readable text representation. (str)
 		"""
-		text = '{}  {:<20}  {:<8}  {:<52}  {:>4}'
+		text = '{}  {:<20}  {:<8}  {:<48}  {:>4}'
 		date_text = self.date.strftime('%m/%d/%y')
 		return text.format(self.reddit_id, self.poster[:20], date_text, self.title[:52], self.score)
 
@@ -477,7 +478,8 @@ class Tracker(cmdr.Cmdr):
 		except KeyError:
 			print('Invalid record ID.')
 		else:
-			print(post.details())
+			if not self.update:
+				print(post.details())
 			self.current = post
 
 	def list_posts(self, posts):
@@ -497,7 +499,7 @@ class Tracker(cmdr.Cmdr):
 		Parameters:
 		submissions: The data to display. (list of praw.Submission)
 		"""
-		text = '{}  {:<20}  {:<8}  {:<51}  {:>5}'
+		text = '{}  {:<20}  {:<8}  {:<47}  {:>5}'
 		for post in submissions:
 			date_text = dt.datetime.fromtimestamp(post.created_utc).strftime('%m/%d/%y')
 			print(text.format(post.id, str(post.author)[:20], date_text, post.title[:51], post.score))
