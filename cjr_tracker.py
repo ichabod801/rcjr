@@ -9,6 +9,8 @@ persistent data lists
 	pagination info
 	pagination commands
 	set command for changing tracking variables
+untag command
+status command
 expanded valid tags
 required tag checking
 
@@ -38,12 +40,14 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.5.0'
+__version__ = 'v1.5.1a1'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
 
 DATA_START = dt.datetime(2020, 4, 1)
+
+LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 class Post(object):
 	"""
@@ -633,6 +637,20 @@ def check_cjr(reddit, current = {}, verbose = False):
 	if not verbose:
 		print()
 	return true_new
+
+def excel_col(n):
+	"""
+	Return the excel column id for a given integer. (str)
+
+	Parameters:
+	n: A positive integer. (int)
+	"""
+	col = ''
+	while n:
+		n -= 1
+		col = f'{LETTERS[n % 26]}{col}'
+		n = n // 26
+	return col
 
 def levenshtein(text_a, text_b):
 	"""
