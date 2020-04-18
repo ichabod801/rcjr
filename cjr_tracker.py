@@ -40,7 +40,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.5.1a1'
+__version__ = 'v1.5.1a2'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -512,8 +512,8 @@ class Tracker(cmdr.Cmdr):
 		Parameters:
 		posts: The data to display. (list of Post)
 		"""
-		for post in posts:
-			print(post)
+		for post_index, post in enumerate(posts, start = 1):
+			print(f'{excel_col(post_index)}: {post}')
 
 	def list_submissions(self, submissions):
 		"""
@@ -522,10 +522,11 @@ class Tracker(cmdr.Cmdr):
 		Parameters:
 		submissions: The data to display. (list of praw.Submission)
 		"""
-		text = '{}  {:<20}  {:<8}  {:<47}  {:>5}'
-		for post in submissions:
+		text = '{}: {}  {:<20}  {:<8}  {:<47}  {:>5}'
+		for post_index, post in enumerate(submissions, start = 1):
+			col = excel_col(post_index)
 			date_text = dt.datetime.fromtimestamp(post.created_utc).strftime('%m/%d/%y')
-			print(text.format(post.id, str(post.author)[:20], date_text, post.title[:47], post.score))
+			print(text.format(col, post.id, str(post.author)[:20], date_text, post.title[:47], post.score))
 
 	def postcmd(self, stop, line):
 		"""
