@@ -5,7 +5,6 @@ A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
 persistent data lists
-	pagination info
 	pagination commands
 	set command for changing tracking variables
 sort tags before displaying
@@ -32,6 +31,7 @@ load_reddit: Open a line into Reddit. (praw.Reddit)
 """
 
 import datetime as dt
+import math
 import praw
 import re
 from urllib.parse import urlparse
@@ -41,7 +41,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.5.2a1'
+__version__ = 'v1.5.3a1'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -298,9 +298,9 @@ class Tracker(cmdr.Cmdr):
 		elif arguments in ('l', 'loc', 'local'):
 			data = [self.local_posts[post_id] for post_id in range(1, Post.num_posts + 1)]
 			# Eventually there will be filters here.
-			self.list_posts(data[:self.page_size])
 			self.current_list = data
 			self.current_index = 0
+			self.list_posts(data[:self.page_size])
 		else:
 			page = slice(self.current_index, (self.current_index + self.page_size))
 			if not self.current_list:
@@ -518,6 +518,10 @@ class Tracker(cmdr.Cmdr):
 		"""
 		for post_index, post in enumerate(posts, start = 1):
 			print(f'{excel_col(post_index)}: {post}')
+		page = self.current_index // self.page_size + 1
+		pages = math.ceil(len(self.current_list) / self.page_size)
+		if pages:
+			print('\nPage {} of {}'.format(page, pages))
 
 	def list_submissions(self, submissions):
 		"""
