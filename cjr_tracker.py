@@ -5,7 +5,6 @@ A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
 persistent data lists
-	pagination commands
 	set command for changing tracking variables
 sort tags before displaying
 tags alias for tag
@@ -43,7 +42,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.5.3a2'
+__version__ = 'v1.5.4'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -261,6 +260,8 @@ class Tracker(cmdr.Cmdr):
 	update: A flag for update mode. (bool)
 
 	Methods:
+	do_back: Go back one page in the listing. (None)
+	do_end: Go to the last page in the listing. (None)
 	do_list: List the specified posts. (None)
 	do_load: Load (reload) data. (None)
 	do_note: Add a note to the current post. (None)
@@ -268,6 +269,7 @@ class Tracker(cmdr.Cmdr):
 	do_quit: Leave the tracking interface. (True)
 	do_save: Save any changed data. (s)
 	do_scan: Scan another subreddit for potential articles. (None)
+	do_start: Go to the first page in the listing. (<<)
 	do_tag: Add one or more tags to the current post. (None)
 	do_update: Turn update mode on or off. (None)
 	do_view: View a post, either by local_id or reddit_id. (None)
@@ -283,9 +285,35 @@ class Tracker(cmdr.Cmdr):
 	preloop
 	"""
 
-	aliases = {'ls': 'list', 'q': 'quit', 't': 'tag', 'u': 'update', 'v': 'view'}
+	aliases = {'<': 'back', '<<': 'start', '>': 'forward', '>>': 'end', 'b': 'back', 'f': 'forward',
+		'ls': 'list', 'q': 'quit', 't': 'tag', 'u': 'update', 'v': 'view'}
 	prompt = 'tracker >> '
 	word_re = re.compile('\w+')
+
+	def do_back(self, arguments):
+		"""
+		Go back one page in the listing. (b, <)
+		"""
+		self.current_index = max(self.current_index - self.page_size, 0)
+		self.do_list('')
+
+	def do_end(self, arguments):
+		"""
+		Go to the last page in the listing. (>>)
+		"""
+		new_index = self.current_index
+		while new_index < len(self.current_list):
+			new_index += self.page_size
+		self.do_list('')
+
+	def do_forward(self, arguments):
+		"""
+		Go forward one page in the listing. (f, >)
+		"""
+		new_index = self.current_index + self.page_size
+		if new_index < len(self.current_list):
+			self.current_index = new_index
+		self.do_list('')
 
 	def do_list(self, arguments):
 		"""
@@ -438,6 +466,13 @@ class Tracker(cmdr.Cmdr):
 			# Notify about PRAW Errors.
 			print('Error connecting to the subreddit.')
 			print('Either the subreddit is invalid or access was denied.')
+
+	def do_start(self, arguments):
+		"""
+		Go to the first page in the listing. (<<)
+		"""
+		self.current_index = 0
+		self.do_list('')
 
 	def do_tag(self, arguments):
 		"""
