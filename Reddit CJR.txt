@@ -118,27 +118,45 @@ Start working on the wiki. The main idea is to give a general overview of Crimin
 				* [The Sentencing Project](???)
 		* Reading List
 		* What Can I Do?
-			* Vote
-				* Most changes are through legislation
-				* Vote local, prosecutors have a huge effect on things. Judges and Sheriffs too.
-			* Inform yourself about the issues.
-				* See the reading list.
-			* Organize.
-				* Get like minded people together to act in concert.
-			* Lobby.
-				* Pay attention to criminal justice related bills, contact your legislators.
-			* Amelliorate
-				* Work with service organizations to help counteract what is going on.
-			* Teach
-				* Spread the word. A lot of this is a cultural paradigm of retribution. Shift that to rehabilitation.
-			* E-Something
-				* Because then it will spell VIOLATE.
+			* VIOLATE
+				* Vote
+					* Most changes are through legislation
+					* Vote local, prosecutors have a huge effect on things. Judges and Sheriffs too.
+				* Inform yourself about the issues.
+					* See the reading list.
+				* Organize.
+					* Get like minded people together to act in concert.
+				* Lobby.
+					* Pay attention to criminal justice related bills, contact your legislators.
+				* Amelliorate (Assist?)
+					* Work with service organizations to help counteract what is going on.
+				* Teach
+					* Spread the word. A lot of this is a cultural paradigm of retribution. Shift that to rehabilitation.
+				* E-Something
+					* Because then it will spell VIOLATE.
+			* Engaging Online
+				* Don't argue CJR with them, defend CJR to others.
+					* You want other people reading the thread to see a different view.
+				* Only reply if there is an audience to defend to.
+					* Avoid Facebook: your reply will get buried.
+					* Top level reddit comments.
+				* Be concise, people don't want to read a book. Make a point and move on.
+				* Be logical and rational, without appeals to emotion.
+					* If you start feeling emotional, get up and walk away, do something else to calm down.
+				* Avoid 'you' language. That sets it up as an argument. This make OP feel attacked.
+				* Provide a reference to support your point.
+					* Links make your reply stand out.
+				* "Make it a challenge to end on a good note or some pleasantry." -u/lennybird
+				* If you can't do the above and still feel frustrated, write up a response but don't post it.
+					* This can help you get it off your chest and move on with your day.
+					* It can help you clarify your own thinking as well.
 
 #### Everything Else ####
 
 Here are some ideas on upgrading the rest of the site:
 
 	* Make a new moderator post, soliciting suggestions.
+	* Subscribe to reddit.
 	* Figure out a way to implement a death sentence watch.
 		* This should be doable with a series of stickies.
 		* deathpenaltyinfo.org has a mailing list.

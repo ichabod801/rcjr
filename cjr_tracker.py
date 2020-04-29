@@ -5,10 +5,11 @@ A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
 persistent data lists
-	alphabetical indexes/viewing by
 	pagination info
 	pagination commands
 	set command for changing tracking variables
+sort tags before displaying
+tags alias for tag
 untag command
 status command
 expanded valid tags
@@ -40,7 +41,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.5.1a2'
+__version__ = 'v1.5.2a1'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -492,8 +493,11 @@ class Tracker(cmdr.Cmdr):
 			else:
 				print('There are no more new posts to view.')
 				return False
-		elif arguments:
+		elif len(arguments) == 6:
 			key = arguments
+		elif arguments:
+			index = from_excel(arguments.upper())
+			key = self.current_list[index].reddit_id
 		else:
 			key = self.current.reddit_id
 		try:
@@ -652,6 +656,21 @@ def excel_col(n):
 		col = f'{LETTERS[n % 26]}{col}'
 		n = n // 26
 	return col
+
+def from_excel(col):
+	"""
+	Return an integer from a given excel column. (str)
+
+	Parameters:
+	col: The alphabetical Excel column index. (str)
+	"""
+	n = 0
+	power = 0
+	while col:
+		n += LETTERS.index(col[-1]) * 10 ** power
+		power += 1
+		col = col[:-1]
+	return n
 
 def levenshtein(text_a, text_b):
 	"""
