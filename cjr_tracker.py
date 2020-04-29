@@ -24,6 +24,8 @@ Tracker: An interface for tracking r/CriminalJusticeReform. (cmdr.Cmdr)
 
 Functions:
 check_cjr: Check for new posts in r/CriminalJusticeReform. (list of Submission)
+excel_col: Return the excel column id for a given integer. (str)
+from_excel: Return an integer from a given excel column. (str)
 levenshtein: Determine the Levenshtein distance between two strings. (int)
 load_keywords: Load the key words for subreddit scanning. (set of str)
 load_local: Load the local data. (dict)
@@ -41,7 +43,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.5.3a1'
+__version__ = 'v1.5.3a2'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -260,7 +262,12 @@ class Tracker(cmdr.Cmdr):
 
 	Methods:
 	do_list: List the specified posts. (None)
+	do_load: Load (reload) data. (None)
+	do_note: Add a note to the current post. (None)
+	do_open: Open a Reddit post in the browser. (None)
 	do_quit: Leave the tracking interface. (True)
+	do_save: Save any changed data. (s)
+	do_scan: Scan another subreddit for potential articles. (None)
 	do_tag: Add one or more tags to the current post. (None)
 	do_update: Turn update mode on or off. (None)
 	do_view: View a post, either by local_id or reddit_id. (None)
