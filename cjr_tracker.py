@@ -4,8 +4,6 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-persistent data lists
-	set command for changing tracking variables
 sort tags before displaying
 tags alias for tag
 untag command
@@ -42,7 +40,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.5.4'
+__version__ = 'v1.5.5'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -259,6 +257,10 @@ class Tracker(cmdr.Cmdr):
 	tag_changes: A flag for changes having been made to tags. (bool)
 	update: A flag for update mode. (bool)
 
+	Class Attributes:
+	valid_ranges: Validity checkers for set command. (dict)
+	word_re: A regular expression matching alphabetic words. (regex)
+
 	Methods:
 	do_back: Go back one page in the listing. (None)
 	do_end: Go to the last page in the listing. (None)
@@ -288,6 +290,7 @@ class Tracker(cmdr.Cmdr):
 	aliases = {'<': 'back', '<<': 'start', '>': 'forward', '>>': 'end', 'b': 'back', 'f': 'forward',
 		'ls': 'list', 'q': 'quit', 't': 'tag', 'u': 'update', 'v': 'view'}
 	prompt = 'tracker >> '
+	valid_ranges = {'page_size': range(5, 100)}
 	word_re = re.compile('\w+')
 
 	def do_back(self, arguments):
@@ -466,6 +469,27 @@ class Tracker(cmdr.Cmdr):
 			# Notify about PRAW Errors.
 			print('Error connecting to the subreddit.')
 			print('Either the subreddit is invalid or access was denied.')
+
+	def do_set(self, arguments):
+		"""
+		Set an option setting.
+
+		Options that can be set are:
+			* page_size: The number of items displayed per page by the list command.
+		"""
+		try:
+			option, setting = arguments.split()
+			setting = int(setting)
+		except (IndexError, ValueError):
+			print(f"Invalid arguments to the set command: '{arguments}'")
+			return False
+		option = option.lower()
+		if option not in self.valid_ranges:
+			print(f'{option} is not an option you can set.')
+		elif setting not in self.valid_ranges[option]:
+			print(f'{setting} is not a valid setting for {option}.')
+		else:
+			setattr(self, option, setting)
 
 	def do_start(self, arguments):
 		"""
