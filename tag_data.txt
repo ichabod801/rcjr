@@ -6,8 +6,6 @@ post_id	tag
 3	bail
 3	failure
 3	new-york
-4	kim-kardashian
-4	donald-trump
 4	covid-19
 5	covid-19
 5	connecticut

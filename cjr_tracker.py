@@ -4,12 +4,11 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-expanded tags
-	separate out people/names
 improved tagging
 	sort tags before displaying
 	tags alias for tag
-	untag command
+	untag/unname command
+	command for adding tags to valid tag list
 status command
 
 Constants:
@@ -41,7 +40,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.6.1'
+__version__ = 'v1.6.2'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -55,12 +54,14 @@ class Post(object):
 	A post on r/CriminalJusticeReform. (object)
 
 	Class Attributes:
-	all_tags: All of the tags used in various posts. (set of str)
+	all_names: All of the names in various posts. (set of str)
+	all_tags: All of the tags used in various posts. (dict of str: dict)
 	num_posts: The number of post objects created. (int)
 
 	Attributes:
 	comments: The number of comments the post received. (int)
 	date: The date the post was submitted. (dt.datetime)
+	names: Names associated with the article. (list of str)
 	notes: Any moderator notes made on the post. (str)
 	per_up: The percentage upvoted for the post. (float)
 	post_id: The local post identifier. (int)
@@ -88,7 +89,8 @@ class Post(object):
 	"""
 
 	num_posts = 0
-	all_tags = set()
+	all_tags = {}
+	all_names = set()
 
 	def __init__(self, data):
 		"""
@@ -136,6 +138,7 @@ class Post(object):
 		self.comments = int(fields[8]) if fields[8] else 0
 		self.notes = fields[9].strip()
 		self.tags = []
+		self.names = []
 		self.submission = None
 
 	def _from_submission(self, data):
@@ -157,6 +160,7 @@ class Post(object):
 		self.comments = len(data.comments)
 		self.notes = ''
 		self.tags = []
+		self.names = []
 		self.submission = data
 
 	def add_note(self, note):
@@ -187,7 +191,7 @@ class Post(object):
 			self.tags.append(tag)
 		elif force:
 			self.tags.append(tag)
-			Post.all_tags.add(tag)
+			#Post.all_tags.add(tag) !! replace with a new tag command.
 		else:
 			return False
 		return True
@@ -202,14 +206,23 @@ class Post(object):
 		"""A detailed text representation. (str)"""
 		lines = ['Post {} by {} on {:%m/%d/%y} from {}:']
 		lines[0] = lines[0].format(self.reddit_id, self.poster, self.date, self.source)
-		lines.append('	{}'.format(self.title[:70]))
-		lines.append('	Score: {}, %Upvoted: {:.2%}, Comments: {}')
+		lines.append('\t{}'.format(self.title[:70]))
+		lines.append('\tScore: {}, %Upvoted: {:.2%}, Comments: {}')
 		lines[-1] = lines[-1].format(self.score, self.per_up, self.comments)
 		if self.notes:
-			lines.append('	Notes: {}'.format(self.notes))
+			lines.append('\tNotes: {}'.format(self.notes))
 		if self.tags:
-			lines.append('	Tags: {}'.format(', '.join(self.tags)))
+			lines.append('\tTags: {}'.format(', '.join(self.tags)))
+		if self.names:
+			lines.append('\tNames: {}'.format(', '.join(self.names)))
 		return '\n'.join(lines)
+
+	def name_lines(self):
+		"""Tab delimited text representation of the post's names. (str)"""
+		if self.names:
+			return ''.join([f'{self.post_id}\t{name}\n' for name in self.names])
+		else:
+			return ''
 
 	def suggest_tags(self, tag, n = 5):
 		"""
@@ -222,6 +235,18 @@ class Post(object):
 		distances = [(levenshtein(tag, existing), existing) for existing in Post.all_tags]
 		distances.sort()
 		return [tag for distance, tag in distances[:n]]
+
+	def suggest_names(self, name, n = 5):
+		"""
+		Find possible matches to a potential tag from the existing tags. (list of str)
+
+		Parameters:
+		name: The potential name to find matches for. (str)
+		n: How many tags to suggest. (int)
+		"""
+		distances = [(levenshtein(name, existing), existing) for existing in Post.all_names]
+		distances.sort()
+		return [name for distance, name in distances[:n]]
 
 	def tag_lines(self):
 		"""Tab delimited text representation of the post's tags. (str)"""
@@ -267,6 +292,7 @@ class Tracker(cmdr.Cmdr):
 	do_end: Go to the last page in the listing. (None)
 	do_list: List the specified posts. (None)
 	do_load: Load (reload) data. (None)
+	do_name: Add a name to the current post. (None)
 	do_note: Add a note to the current post. (None)
 	do_open: Open a Reddit post in the browser. (None)
 	do_quit: Leave the tracking interface. (True)
@@ -278,6 +304,7 @@ class Tracker(cmdr.Cmdr):
 	do_view: View a post, either by local_id or reddit_id. (None)
 	list_posts: Display a list of local Post objects. (None)
 	list_submissions: Display a list of Reddit Submission objects. (None)
+	save_names: Save the name data. (None)
 	save_posts: Save the post data. (None)
 	save_tags: Save the tag data. (None)
 	update_check: Check if it is valid to update the current record. (bool)
@@ -360,6 +387,35 @@ class Tracker(cmdr.Cmdr):
 			print('Loading Reddit data ...')
 			self.new_posts = check_cjr(self.reddit, current = self.local_posts)
 
+	def do_name(self, arguments):
+		"""
+		Add a name to the current post. (t)
+		"""
+		if self.update_check():
+			# Check the name against existing names.
+			if arguments not in Post.all_names:
+				# Query the user after failed additions.
+				suggested = self.current.suggest_names(arguments)
+				print('The name {!r} was not recognized. Suggested names:'.format(arguments))
+				for maybe_index, maybe_name in enumerate(suggested, start = 1):
+					print('   {}. {}'.format(maybe_index, maybe_name))
+				choice = input('Enter f to force name, s to skip name, or # to use suggested name: ')
+				# Process the user's choice for handling a failed addition.
+				if choice.lower() == 'f':
+					self.current.names.append(arguments)
+					self.name_changes = True
+					Post.all_names.add(arguments)
+				elif choice.isdigit():
+					self.current.names.append(suggested[int(choice) - 1])
+					self.name_changes = True
+				elif choice.lower() == 's':
+					pass
+				else:
+					print('Your choice was not recognized, so the name was skipped.')
+			else:
+				self.current.names.append(arguments)
+				self.name_changes = True
+
 	def do_note(self, arguments):
 		"""
 		Add a note to the current post. (n)
@@ -420,6 +476,10 @@ class Tracker(cmdr.Cmdr):
 			self.save_posts()
 			print('Post data saved.')
 			self.post_changes = False
+		if self.name_changes or force:
+			self.save_names()
+			print('Name data saved.')
+			self.name_changes = False
 		if self.tag_changes or force:
 			self.save_tags()
 			print('Tag data saved.')
@@ -652,6 +712,7 @@ class Tracker(cmdr.Cmdr):
 		print('\nWelcome to the r/CriminalJusticeReform tracking application.')
 		self.silent = False
 		self.post_changes = False
+		self.name_changes = False
 		self.tag_changes = False
 		self.current = None
 		self.update = False
@@ -666,6 +727,14 @@ class Tracker(cmdr.Cmdr):
 		self.do_load('reddit')
 		print(self.status())
 		print()
+
+	def save_names(self):
+		"""Save the name data. (None)"""
+		with open('name_data.txt', 'w') as name_file:
+			name_file.write('post_id\tname\n')
+			for post_id in range(1, len(self.local_posts) // 2 + 1):
+				post = self.local_posts[post_id]
+				name_file.write(post.name_lines())
 
 	def save_posts(self):
 		"""Save the post data. (None)"""
@@ -816,6 +885,13 @@ def load_local():
 				continue
 			post_id, tag = line.strip().split('\t')
 			posts[int(post_id)].add_tag(tag, force = True)
+	with open('name_data.txt') as name_file:
+		for line in name_file:
+			if line.startswith('post_id'):
+				continue
+			post_id, name = line.strip().split('\t')
+			posts[int(post_id)].names.append(name)
+			Post.all_names.add(name)
 	return posts, valid_tags
 
 def load_reddit(read_only = False, **kwargs):
