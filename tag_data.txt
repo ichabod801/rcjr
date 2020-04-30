@@ -117,3 +117,5 @@ post_id	tag
 35	news
 35	early-release
 35	covid-19
+36	news
+36	new-york

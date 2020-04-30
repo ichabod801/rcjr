@@ -4,12 +4,16 @@ cjr_tracker.py
 A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
-sort tags before displaying
-tags alias for tag
-untag command
+expanded tags
+	expanded valid tags (from data version of possible tags)
+	required tag checking
+		require process or theme, location, and article type tag
+	separate out people/names
+improved tagging
+	sort tags before displaying
+	tags alias for tag
+	untag command
 status command
-expanded valid tags
-required tag checking
 
 Constants:
 ACCESS_KWARGS: The standard access credentials. (dict of str: str)
@@ -40,7 +44,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.5.5'
+__version__ = 'v1.6.0'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -646,7 +650,7 @@ class Tracker(cmdr.Cmdr):
 		print('\nAccessing Reddit ...')
 		self.reddit = load_reddit()
 		print('Loading stored data ...')
-		self.local_posts = load_local()
+		self.local_posts, Post.all_tags = load_local()
 		self.keywords = load_keywords()
 		self.do_load('reddit')
 		print(self.status())
@@ -781,7 +785,7 @@ def load_local():
 	"""
 	Load the local data. (dict)
 	"""
-	posts = {}
+	posts, valid_tags = {}, {}
 	with open('post_data.txt') as post_file:
 		for line in post_file:
 			if line.startswith('post_id'):
@@ -789,13 +793,19 @@ def load_local():
 			new_post = Post(line)
 			posts[new_post.post_id] = new_post
 			posts[new_post.reddit_id] = new_post
+	with open('valid_tags.txt') as valid_file:
+		for line in valid_file:
+			if line.startswith('tag_id'):
+				continue
+			tag_id, category, parent, tag = line.strip().split(',')
+			valid_tags[tag] = {'id': int(tag_id), 'category': category, 'parent': parent}
 	with open('tag_data.txt') as tag_file:
 		for line in tag_file:
 			if line.startswith('post_id'):
 				continue
 			post_id, tag = line.strip().split('\t')
 			posts[int(post_id)].add_tag(tag, force = True)
-	return posts
+	return posts, valid_tags
 
 def load_reddit(read_only = False, **kwargs):
 	"""
