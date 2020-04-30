@@ -1,7 +1,7 @@
 post_id	red_id	date	source	poster	title	score	per	com	notes
 1	ftyzd7	04/03/2020	newrepublic.com	ichabod801	Policing and the English Language	1	1.0	0	
 2	fu4os6	04/03/2020	self	Small-Praline	Going back to jail	1	0.99	2	
-3	fuaarr	04/03/2020	gothamgazette.com	ichabod801	Bail Reform Rollbacks are a Dangerous Failing of Moral Courage	4	0.84	0	
+3	fuaarr	04/03/2020	gothamgazette.com	ichabod801	Bail Reform Rollbacks are a Dangerous Failing of Moral Courage	5	1.0	0	
 4	fuaki1	04/03/2020	washingtonpost.com	ichabod801	"Kim Kardashian West on coronavirus, criminal justice reform and working with Trump"	1	1.0	1	"not posting, why?"
 5	fuv7tj	04/04/2020	ctmirror.org	ichabod801	ACLU of CT Sues to Reduce Prison Population to Prevent the Spread of COVID-19	1	1.0	0	
 6	fv4lrp	04/04/2020	ncbusinessdaily	ak321836	"Shanita McKnight, former cop jailed for drug crimes, seeks Presidential clemency"	1	1.0	0	
@@ -14,16 +14,16 @@ post_id	red_id	date	source	poster	title	score	per	com	notes
 13	fww9hb	04/07/2020	www.washingtonpost.com	ichabod801	Federal executions can resume, but not just yet, divided appeals court rules	2	1.0	0	
 14	fx7s3g	04/08/2020	www.themarshallproject.org	ichabod801	COVID-19 Small Business Relief not Available to Owners with Criminal Records	2	1.0	1	
 15	fx7zic	04/08/2020	www.prisonpolicy.org	kclovesbeer	Reforms Without Results: Why states should stop excluding violent offenses from criminal justice reforms	3	1.0	3	
-16	fxungj	04/09/2020	www.washingtonpost.com	ichabod801	Federal judge expands voting decision to apply to all ex-felons in Florida	7	1.0	1	
-17	fyhpzb	04/10/2020	www.tennessean.com	ichabod801	COVID-19 leads to 'hyper-acceleration' of some criminal justice reforms in Tennessee	5	0.86	2	
+16	fxungj	04/09/2020	www.washingtonpost.com	ichabod801	Federal judge expands voting decision to apply to all ex-felons in Florida	5	0.86	1	
+17	fyhpzb	04/10/2020	www.tennessean.com	ichabod801	COVID-19 leads to 'hyper-acceleration' of some criminal justice reforms in Tennessee	5	1.0	2	
 18	fyqfvu	04/10/2020	www.washingtonpost.com	ichabod801	Inside the deadliest federal prison, the seeping coronavirus creates fear and danger	1	1.0	1	
 19	fz822d	04/11/2020	thecrimereport.org	ichabod801	Colorado’s Death Penalty Repeal: How It Happened—and Why	1	1.0	0	
 20	fzyaqj	04/12/2020	news3lv.com	ichabod801	Battle over drugs for Nevada execution ends with no decision	2	1.0	1	
 21	g0l11c	04/13/2020	wset.com	ichabod801	Virginia's Gov. Northam signs criminal justice reform laws and proposes study on legalizing marijuana	3	1.0	1	
-22	g0sjvl	04/13/2020	i.redd.it	col1928	Just a reminder for most people against criminal justice reform.	7	1.0	0	
+22	g0sjvl	04/13/2020	i.redd.it	col1928	Just a reminder for most people against criminal justice reform.	8	1.0	0	
 23	g15sed	04/14/2020	www.theguardian.com	ichabod801	Death penalty states urged to release stockpiled drugs for Covid-19 patients	2	1.0	1	
 24	g1u7pb	04/15/2020	slate.com	ichabod801	Another Study on Releasing Prisoners with Violent Records	2	1.0	2	
-25	g1vjqa	04/15/2020	www.reddit.com	BloodCousin	New Podcast about a man on Death Row. He was convicted of murdering his cousin. But, he says he didn't do it, and there's evidence that indicates he's telling the truth.	4	1.0	0	
+25	g1vjqa	04/15/2020	www.reddit.com	BloodCousin	New Podcast about a man on Death Row. He was convicted of murdering his cousin. But, he says he didn't do it, and there's evidence that indicates he's telling the truth.	5	1.0	0	
 26	g2jf32	04/16/2020	thecrimereport.org	ichabod801	Law Enforcement Leaders Call for Steps to Reduce Mass Incarceration	3	1.0	1	
 27	g32bb8	04/17/2020	www.5280.com	ichabod801	Colorado Is the Eighth State To End Prison-Based Gerrymandering	3	1.0	1	
 28	g3fgv6	04/17/2020	www.nj.com	ichabod801	Feds found rampant sex abuse at N.J. women's prison. Now lawmakers want answers.	2	1.0	0	
@@ -35,3 +35,4 @@ post_id	red_id	date	source	poster	title	score	per	com	notes
 34	g5nlye	04/21/2020	nbc16.com	ichabod801	U.S. Supreme Court Bans Non-Unanimous Jury Convictions	2	1.0	1	
 35	g62u1a	04/22/2020	reason.com	ichabod801	Bureau of Prisons Reverses Coronavirus Home Confinement Policy	3	1.0	1	
 36	g6b1oo	04/22/2020	whcuradio.com	ichabod801	ReEntry Theatre Program presents "Streets Like This" online	1	1.0	1	
+37	g6m2hy	04/23/2020	www.washingtonpost.com	Jojuj	The forever bars: With the virus rampaging, too many people are in prison. But if we fail to free anyone locked up for violence, we won’t save enough lives	2	1.0	1	

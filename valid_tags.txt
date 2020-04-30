@@ -175,5 +175,4 @@ tag_id,category,parent,tag
 174,location,N/A,wyoming-ish
 175,specific-legislation,N/A,first-step-act
 176,special-events,N/A,covid-19
-177,process,N/A,activism
-178,process,activism,art
+177,theme,N/A,art

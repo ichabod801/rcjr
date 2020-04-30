@@ -5,9 +5,6 @@ A Python script for tracking r/CriminalJusticeReform posts.
 
 To Do:
 expanded tags
-	expanded valid tags (from data version of possible tags)
-	required tag checking
-		require process or theme, location, and article type tag
 	separate out people/names
 improved tagging
 	sort tags before displaying
@@ -44,7 +41,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.6.0'
+__version__ = 'v1.6.1'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -507,15 +504,19 @@ class Tracker(cmdr.Cmdr):
 		Add one or more tags to the current post. (t)
 		"""
 		if self.update_check():
+			# Check each argument.
 			tags = arguments.lower().split()
 			for tag in tags:
+				# Try adding the tag.
 				added = self.current.add_tag(tag)
 				if not added:
+					# Query the user after failed additions.
 					suggested = self.current.suggest_tags(tag)
 					print('The tag {!r} was not recognized. Suggested tags:'.format(tag))
 					for maybe_index, maybe_tag in enumerate(suggested, start = 1):
 						print('   {}. {}'.format(maybe_index, maybe_tag))
 					choice = input('Enter f to force tag, s to skip tag, or # to use suggested tag: ')
+					# Process the user's choice for handling a failed addition.
 					if choice.lower() == 'f':
 						self.current.add_tag(tag, force = True)
 						self.tag_changes = True
@@ -528,6 +529,16 @@ class Tracker(cmdr.Cmdr):
 						print('Your choice was not recognized, so the tag was skipped.')
 				else:
 					self.tag_changes = True
+			# Check for required tags.
+			categories = set()
+			for tag in self.current.tags:
+				categories.add(Post.all_tags[tag]['category'])
+			if 'process' not in categories and 'theme' not in categories:
+				print(f'WARNING: Post {self.current.reddit_id} does not have a process or theme tag.')
+			if 'location' not in categories:
+				print(f'WARNING: Post {self.current.reddit_id} does not have a location tag.')
+			if 'article-types' not in categories:
+				print(f'WARNING: Post {self.current.reddit_id} does not have an article type tag.')
 
 	def do_update(self, arguments):
 		"""

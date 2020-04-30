@@ -119,3 +119,9 @@ post_id	tag
 35	covid-19
 36	news
 36	new-york
+37	covid-19
+37	federal
+37	california-ish
+37	early-release
+37	opinion
+37	violent-crimes
