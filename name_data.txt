@@ -1,4 +1,3 @@
 post_id	name
-4	Kim Kardashian
-4	Donald Trump
-39	Terrence Monohan
+3	Kevin Stitt
+4	Julia Tutwiler Prison

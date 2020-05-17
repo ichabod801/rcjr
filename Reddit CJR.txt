@@ -64,6 +64,141 @@ If all else fails, start my own community.
 
 Once I become a moderator, work on the subreddit. Make it a place people have a reason to go to. I may get some resistance if scottindy wants to remain a moderator at that point, but do what you can. The main thing I want to do is add a wiki, but don't ignore the rest of the sub.
 
+#### The Name ####
+
+Phase 3 has become making my own subreddit. Scottindy is ignoring all my messages, and the alternative is doing filing work for Wendy. So, what should it be called? The two ideas I have had so far are r/JusticeReform and r/EndMassIncarceration. r/JusticeReform is broader, and could be construed to involve something besides criminal justice. The problem with r/EndMassIncarceration is that everything wrong with the criminal justice system feeds mass incarceration, but much of it could still exist without mass incarceration. r/JusticeReform is taken.
+
+Other Ideas:
+
+* Equal Justice (True Justice?)
+* CJR [taken]
+* CrimJustRef
+* SmartOnCrime
+* ReformJustice
+* ReformationArmy (ugh, war themes)
+
+#### Blurb ####
+
+Title: Seeking Rehabilitation Over Retribution
+
+The description text for the subreddit:
+
+Since the 1970s America has incarcerated ten times as many citizens and completely broken our criminal justice system. The system turns public health issues in crimes, preys on the poor with cash bail and plea bargaining, warehouses people without any intention of giving them the skills not to be criminals, and then implements roadblocks to prevent released citizens from making a life on the outside, all of it with racial bias. This is a subreddit for people who want to change all of that.
+
+Text for the sidebar:
+
+The 1970s saw the start of Tough on Crime and the War on Drugs in America. Since then we have incarcerated ten times as many citizens and completely broken our criminal justice system. The system turns public health issues in crimes, preys on the poor with cash bail and plea barganning, warehouses people without any intention of giving them the skills not to be criminals, and then implements a host of roadblocks to prevent released offenders from making a life on the outside. And, of course, there is the ever present racial bias. This is a subreddit for people who want to change all of that.
+
+Rules:
+
+  * Please use proper flair when posting.
+  * No insults or other forms of ad hominem attacks.
+  * No racism, mysogyny, or other forms of prejudice.
+  * No trolling.
+
+Related Subs:
+
+  * r/abolish
+  * r/Bad_Cop_No_Donut
+  * r/ExCons
+  * r/forfeiture
+  * r/prisonabolition
+  * r/prisonreform
+  * r/Prisons
+  * r/restorativejustice
+  * r/Thewarondrugs
+
+#### Post Flair ####
+
+* Data/Academic
+* Essay/OC
+* Meme
+* News
+* Opinion
+* Press Release
+* Request
+
+.linkflair-academic .linkflairlabel {
+    background-color: #ffffoo;
+    font-size: 11px;
+    font-weight: bold;
+    color:#000000;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 3px;}
+
+.linkflair-essay .linkflairlabel {
+    background-color: #ff6600;
+    font-size: 11px;
+    font-weight: bold;
+    color:#000000;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 3px;}
+
+.linkflair-meme .linkflairlabel {
+    background-color: #660033;
+    font-size: 11px;
+    font-weight: bold;
+    color:#ffffff;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 3px;}
+
+.linkflair-news .linkflairlabel {
+    background-color: #0000cc;
+    font-size: 11px;
+    font-weight: bold;
+    color:#ffffff;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 3px;}
+
+.linkflair-opinion .linkflairlabel {
+    background-color: #006633;
+    font-size: 11px;
+    font-weight: bold;
+    color:#ffffff;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 3px;}
+
+.linkflair-press .linkflairlabel {
+    background-color: #33ffff;
+    font-size: 11px;
+    font-weight: bold;
+    color:#000000;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 3px;}
+
+.linkflair-request .linkflairlabel {
+    background-color: #00ff33;
+    font-size: 11px;
+    font-weight: bold;
+    color:#000000;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 3px;}
+
+#### Death Penalty Post ####
+
+Next U.S. Execution: Walter Barton, 5/19/2020
+
+Walter Barton, 64, is scheduled to be executed in Missouri on May 19th for the sexual assault and murder of Gladys Kuehler in 1991. Barton was tried for the murder five times, with two mistrials and two overturned convictions due to prosecutorial misconduct. Barton maintains his innocence, and claims the bloodstain on his shirt was from identifying the victim. 
+
+The last person executed in the United States was Nathaniel Woods in Alabama on March 5th of 2020. He was executed for the murder of three police officers in 2004. Kerry Spencer, his accomplice, confessed to being the sole gunman. The death penalty verdict was non-unanimous, with two jurors voting against it.
+
+#### Welcome Email ####
+
+Hello and thank you for joining r/EndMassIncarceration.
+
+I am hoping to build this subreddit into a community and resource for reform of the American criminal justice system, one that emphasizes rehabilitation over retribution. I welcome your input. If you see something you think is relevant to criminal justice reform, please post it. If you have something you want to see from this subreddit, please let me know.
+
+Thank you and welcome again,
+
+u/ichabod801 (Craig "Ichabod" O'Brien)
+
 #### Wiki ####
 
 Start working on the wiki. The main idea is to give a general overview of Criminal Justice Reform, such as the problems that have been identified and the solutions people are trying to implement. There could also be pages on CJR organizations and resources, and maybe people involved in criminal justice reform. In this phase, don't look to finish it, look to start it. Think especially about how to organize it, and organize it in a way that it can grow.

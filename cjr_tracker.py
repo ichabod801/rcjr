@@ -1,10 +1,11 @@
 """
 cjr_tracker.py
 
-A Python script for tracking r/CriminalJusticeReform posts.
+A Python script for tracking r/EndMassIncarceration posts.
 
 To Do:
 improved tagging
+	bug: forcing a tag causes an error b/c it has not category. post is still tagged, though.
 	sort tags before displaying
 	tags alias for tag
 	untag/unname command
@@ -16,11 +17,11 @@ ACCESS_KWARGS: The standard access credentials. (dict of str: str)
 DATA_START: The date that data collection started. (datetime.datetime)
 
 Classes:
-Post: A post on r/CriminalJusticeReform. (object)
-Tracker: An interface for tracking r/CriminalJusticeReform. (cmdr.Cmdr)
+Post: A post on r/EndMassIncarceration. (object)
+Tracker: An interface for tracking r/EndMassIncarceration. (cmdr.Cmdr)
 
 Functions:
-check_cjr: Check for new posts in r/CriminalJusticeReform. (list of Submission)
+check_cjr: Check for new posts in r/EndMassIncarceration. (list of Submission)
 excel_col: Return the excel column id for a given integer. (str)
 from_excel: Return an integer from a given excel column. (str)
 levenshtein: Determine the Levenshtein distance between two strings. (int)
@@ -40,7 +41,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.6.2'
+__version__ = 'v1.6.3'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -51,7 +52,7 @@ LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 class Post(object):
 	"""
-	A post on r/CriminalJusticeReform. (object)
+	A post on r/EndMassIncarceration. (object)
 
 	Class Attributes:
 	all_names: All of the names in various posts. (set of str)
@@ -271,7 +272,7 @@ class Post(object):
 
 class Tracker(cmdr.Cmdr):
 	"""
-	An interface for tracking r/CriminalJusticeReform. (cmdr.Cmdr)
+	An interface for tracking r/EndMassIncarceration. (cmdr.Cmdr)
 
 	Attributes:
 	current: The current post being updated. (Post)
@@ -592,7 +593,8 @@ class Tracker(cmdr.Cmdr):
 			# Check for required tags.
 			categories = set()
 			for tag in self.current.tags:
-				categories.add(Post.all_tags[tag]['category'])
+				if tag in Post.all_tags:
+					categories.add(Post.all_tags[tag]['category'])
 			if 'process' not in categories and 'theme' not in categories:
 				print(f'WARNING: Post {self.current.reddit_id} does not have a process or theme tag.')
 			if 'location' not in categories:
@@ -709,7 +711,7 @@ class Tracker(cmdr.Cmdr):
 		"""
 		Processing done when the application is started. (None)
 		"""
-		print('\nWelcome to the r/CriminalJusticeReform tracking application.')
+		print('\nWelcome to the r/EndMassIncarceration tracking application.')
 		self.silent = False
 		self.post_changes = False
 		self.name_changes = False
@@ -776,14 +778,14 @@ class Tracker(cmdr.Cmdr):
 
 def check_cjr(reddit, current = {}, verbose = False):
 	"""
-	Check for new posts in r/CriminalJusticeReform. (list of praw.Submission)
+	Check for new posts in r/EndMassIncarceration. (list of praw.Submission)
 
 	Parameters:
 	current: The current posts that should be ignored. (dict of str: Post)
 	reddit: A reddit instance. (praw.Reddit)
 	"""
 	true_new = []
-	cjr = reddit.subreddit('CriminalJusticeReform')
+	cjr = reddit.subreddit('EndMassIncarceration')
 	for post in cjr.new():
 		if dt.datetime.fromtimestamp(post.created_utc) < DATA_START:
 			break
