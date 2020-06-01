@@ -5,7 +5,6 @@ A Python script for tracking r/EndMassIncarceration posts.
 
 To Do:
 improved tagging
-	untag/unname command
 	command for adding tags to valid tag list
 status command
 
@@ -38,7 +37,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.6.5'
+__version__ = 'v1.6.6'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -300,6 +299,8 @@ class Tracker(cmdr.Cmdr):
 	do_scan: Scan another subreddit for potential articles. (None)
 	do_start: Go to the first page in the listing. (<<)
 	do_tag: Add one or more tags to the current post. (None)
+	do_unname: Remove a name from a post. (None)
+	do_untag: Remove a tag from a post. (None)
 	do_update: Turn update mode on or off. (None)
 	do_view: View a post, either by local_id or reddit_id. (None)
 	list_posts: Display a list of local Post objects. (None)
@@ -307,6 +308,7 @@ class Tracker(cmdr.Cmdr):
 	save_names: Save the name data. (None)
 	save_posts: Save the post data. (None)
 	save_tags: Save the tag data. (None)
+	tag_check: Check a post for the required tags. (None)
 	update_check: Check if it is valid to update the current record. (bool)
 
 	Overridden Methods:
@@ -315,8 +317,9 @@ class Tracker(cmdr.Cmdr):
 	preloop
 	"""
 
-	aliases = {'<': 'back', '<<': 'start', '>': 'forward', '>>': 'end', 'b': 'back', 'f': 'forward',
-		'ls': 'list', 'q': 'quit', 't': 'tag', 'tags': 'tag', 'u': 'update', 'v': 'view'}
+	aliases = {'<': 'back', '<<': 'start', '>': 'forward', '>>': 'end', '-n': 'unname', '-t': 'untag',
+		'b': 'back', 'f': 'forward', 'ls': 'list', 'q': 'quit', 't': 'tag', 'tags': 'tag', 'u': 'update',
+		'v': 'view'}
 	prompt = 'tracker >> '
 	valid_ranges = {'page_size': range(5, 100)}
 	word_re = re.compile('\w+')
@@ -589,17 +592,29 @@ class Tracker(cmdr.Cmdr):
 						print('Your choice was not recognized, so the tag was skipped.')
 				else:
 					self.tag_changes = True
-			# Check for required tags.
-			categories = set()
-			for tag in self.current.tags:
-				if tag in Post.all_tags:
-					categories.add(Post.all_tags[tag]['category'])
-			if 'process' not in categories and 'theme' not in categories:
-				print(f'WARNING: Post {self.current.reddit_id} does not have a process or theme tag.')
-			if 'location' not in categories:
-				print(f'WARNING: Post {self.current.reddit_id} does not have a location tag.')
-			if 'article-types' not in categories:
-				print(f'WARNING: Post {self.current.reddit_id} does not have an article type tag.')
+			self.tag_check(self.current)
+
+	def do_unname(self, arguments):
+		"""
+		Remove a name from a post. (-n)
+		"""
+		if self.update_check():
+			if arguments in self.current.names:
+				self.current.names.remove(arguments)
+			else:
+				print(f'The current post does not have the name {arguments!r}.')
+
+	def do_untag(self, arguments):
+		"""
+		Remove a tag from a post. (-t)
+		"""
+		if self.update_check():
+			tag = arguments.lower()
+			if tag in self.current.tags:
+				self.current.tags.remove(tag)
+				self.tag_check(self.current)
+			else:
+				print(f'The current post does not have the tag {tag!r}.')
 
 	def do_update(self, arguments):
 		"""
@@ -763,6 +778,25 @@ class Tracker(cmdr.Cmdr):
 		up_text = 'on' if self.update else 'off'
 		lines.append('Update mode is {}.'.format(up_text))
 		return '\n'.join(lines)
+
+	def tag_check(self, post):
+		"""
+		Check a post for the required tags. (None)
+
+		Parameters:
+		post: A post to check for tags. (Post)
+		"""
+		# Check for required tags.
+		categories = set()
+		for tag in post.tags:
+			if tag in Post.all_tags:
+				categories.add(Post.all_tags[tag]['category'])
+		if 'process' not in categories and 'theme' not in categories:
+			print(f'WARNING: Post {post.reddit_id} does not have a process or theme tag.')
+		if 'location' not in categories:
+			print(f'WARNING: Post {post.reddit_id} does not have a location tag.')
+		if 'article-types' not in categories:
+			print(f'WARNING: Post {post.reddit_id} does not have an article type tag.')
 
 	def update_check(self):
 		"""

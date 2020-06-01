@@ -102,3 +102,6 @@ post_id	tag
 28	news
 28	south-carolina
 28	women
+29	death-penalty
+29	florida
+29	news
