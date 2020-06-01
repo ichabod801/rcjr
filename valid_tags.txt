@@ -176,3 +176,7 @@ tag_id,category,parent,tag
 175,specific-legislation,N/A,first-step-act
 176,special-events,N/A,covid-19
 177,theme,N/A,art
+178,article-types,N/A,press-release
+179,article-types,N/A,meta
+180,location,N/A,united-states
+181,process,legislation,elections

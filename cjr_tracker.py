@@ -5,8 +5,6 @@ A Python script for tracking r/EndMassIncarceration posts.
 
 To Do:
 improved tagging
-	bug: forcing a tag causes an error b/c it has not category. post is still tagged, though.
-	sort tags before displaying
 	tags alias for tag
 	untag/unname command
 	command for adding tags to valid tag list
@@ -41,7 +39,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.6.3'
+__version__ = 'v1.6.4'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -213,8 +211,10 @@ class Post(object):
 		if self.notes:
 			lines.append('\tNotes: {}'.format(self.notes))
 		if self.tags:
+			self.tags.sort()
 			lines.append('\tTags: {}'.format(', '.join(self.tags)))
 		if self.names:
+			self.names.sort()
 			lines.append('\tNames: {}'.format(', '.join(self.names)))
 		return '\n'.join(lines)
 

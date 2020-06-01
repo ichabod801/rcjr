@@ -1,5 +1,28 @@
 post_id	red_id	date	source	poster	title	score	per	com	notes
-1	ggmgdi	05/09/2020	www.reddit.com	ichabod801	Next U.S. Execution: Walter Barton, 5/19/2020	1	1.0	1	
-2	ggmnek	05/09/2020	www.reddit.com	ichabod801	New Subreddit, New Moderator, Open to Suggestions	1	1.0	0	
+1	ggmgdi	05/09/2020	www.reddit.com	ichabod801	Next U.S. Execution: Walter Barton, 5/19/2020	2	1.0	3	
+2	ggmnek	05/09/2020	www.reddit.com	ichabod801	New Subreddit, New Moderator, Open to Suggestions	2	1.0	0	
 3	ggmwzu	05/09/2020	kfor.com	ichabod801	Oklahoma Using COVID-19 to Block Criminal Justice Reform Ballot Question	2	1.0	1	
 4	gh18qf	05/10/2020	www.themarshallproject.org	ichabod801	Tutwiler: A Documentary about Expectant Mothers Supporting Each Other in Prison	1	1.0	0	
+5	ghnzrn	05/11/2020	www.themarshallproject.org	ichabod801	Confronting Unconscious Racism In Jury Selection	1	1.0	1	
+6	gi1x25	05/11/2020	www.heraldcourier.com	ichabod801	Put in Solitary for a Year Because of Dreadlocks	2	1.0	0	
+7	gicvqq	05/12/2020	www.nytimes.com	ichabod801	The Women’s Jail at Rikers Island Is Named for My Grandmother. She Would Not Be Proud.	2	1.0	0	
+8	gipz3y	05/12/2020	www.cnbc.com	ichabod801	The Bail Bonds Business is Getting Hit Hard by COVID-19	1	1.0	1	
+9	gj0spy	05/13/2020	www.nola.com	ichabod801	NFL renews grant for VOTE, a New Orleans-based organization seeking criminal justice reform	1	1.0	0	
+10	gjblfb	05/13/2020	www.houmatoday.com	ichabod801	Louisiana Bill Would Make Gun Ownership by Felons a Violent Crime	1	1.0	1	
+11	gjo897	05/14/2020	www.chicagoreporter.com	ichabod801	How Chicago's Fee and Fine Collection Hits Poor Black Areas the Hardest	1	1.0	0	
+12	gk05hm	05/14/2020	www.prisonpolicy.org	ichabod801	In Response to COVID-19, Jail Drop Population 30%, but Prisons Only Drop 5%	1	1.0	1	
+13	gk81cu	05/15/2020	www.reddit.com	KrissyHeart19	If you can please catch my husband Dr John Hart of University of Maryland College Park speaking on criminal justice this morning at 9am eastern the links are posted	3	1.0	0	
+14	gkaqpg	05/15/2020	wfpl.org	ichabod801	Podcast: Mass Incarceration And The Children Left Behind	1	1.0	0	
+15	gkb6d8	05/15/2020	www.reddit.com	ichabod801	CJR Outline Added to the Wiki	1	1.0	0	
+16	gkjd1z	05/15/2020	theconversation.com	ichabod801	An inmate’s love for math leads to new discoveries	3	1.0	0	
+17	gkvu07	05/16/2020	theappeal.org	ichabod801	He Won His Release from Prison, Right into COVID-19	1	1.0	0	
+18	gl3j09	05/16/2020	theintercept.com	ichabod801	The Troubling History of Georgia Agency Investigating Ahmaud Arbery Cover-Up	2	1.0	0	
+19	glgoem	05/17/2020	newsone.com	ichabod801	Common’s Nonprofit Launches Criminal Justice Reform Campaign Amid COVID-19	2	1.0	0	
+20	glra03	05/17/2020	progressive.org	ichabod801	California Fights to Deny Parole Based on Gang Ties	1	1.0	1	
+21	gm3hit	05/18/2020	www.reuters.com	ichabod801	For cops who kill, special Supreme Court protection	1	1.0	0	
+22	gmqx3p	05/19/2020	www.injusticewatch.org	ichabod801	Appeals Court to Weigh Mass Strip Search at Women's Prison	1	1.0	0	
+23	gndpto	05/20/2020	www.reddit.com	ichabod801	Next U.S. Execution: Ruben Gutierrez, Texas, June 16 2020	2	1.0	0	
+24	gnexbr	05/20/2020		ichabod801	Criminal Justice Reform by Johnny Monell	1	1.0	0	
+25	gnyls0	05/21/2020	theappeal.org	ichabod801	Progressive Wins D.A. Race in Portland, Sending “Shockwaves” Through Oregon’s Punitive System	1	0.67	0	
+26	gnywkq	05/21/2020	www.reddit.com	ichabod801	List of Reform Organizations Wiki Page	1	1.0	0	
+27	go7jgf	05/21/2020	www.marijuanamoment.net	ichabod801	Illinois Announces $31 Million In Marijuana Revenue-Funded Grants To Repair Drug War’s Harms	1	1.0	0	

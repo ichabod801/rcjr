@@ -108,6 +108,38 @@ Related Subs:
   * r/restorativejustice
   * r/Thewarondrugs
 
+#### Banner Image ####
+
+This is the css for a banner:
+
+/* banner */
+
+#header-bottom-left {
+    height: 162;
+    padding-top: 30px;
+    background: url(%%birdbreaksbars192%%) ;
+}
+
+Inside the double percents are the file name. You can upload a new file on the stylesheet page.
+
+height + padding-top should equal actual image height. I took out no repeat so that it tiles. The problem is that it gets in the way of the menus. Not sure how to get around that.
+
+To see another subreddit's style sheet, use http://reddit.com/r/subreddit-name/about/stylesheet.
+
+Alternate css:
+
+/*Banner*/
+#header {
+    background: url(%%Banner%%) 0 19px;   /* not clear to me what '0 19px' is for. guess is offset from top right. */
+    height: 200px;
+}
+#header-bottom-left {
+    position: absolute;
+    bottom: 0;
+}
+
+This works well, but I want to change the image so it's red across the bottom. Otherwise the bars confuse the menu text.
+
 #### Post Flair ####
 
 * Data/Academic
