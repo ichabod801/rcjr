@@ -26,3 +26,4 @@ post_id	red_id	date	source	poster	title	score	per	com	notes
 25	gnyls0	05/21/2020	theappeal.org	ichabod801	Progressive Wins D.A. Race in Portland, Sending “Shockwaves” Through Oregon’s Punitive System	1	0.67	0	
 26	gnywkq	05/21/2020	www.reddit.com	ichabod801	List of Reform Organizations Wiki Page	1	1.0	0	
 27	go7jgf	05/21/2020	www.marijuanamoment.net	ichabod801	Illinois Announces $31 Million In Marijuana Revenue-Funded Grants To Repair Drug War’s Harms	1	1.0	0	
+28	gokxxo	05/22/2020	www.postandcourier.com	ichabod801	SC becomes 43rd state to outlaw shackling of pregnant inmates	2	1.0	1	

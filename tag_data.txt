@@ -98,3 +98,7 @@ post_id	tag
 27	illinois
 27	legal-pot
 27	news
+28	inside-abuse
+28	news
+28	south-carolina
+28	women

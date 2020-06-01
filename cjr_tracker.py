@@ -5,7 +5,6 @@ A Python script for tracking r/EndMassIncarceration posts.
 
 To Do:
 improved tagging
-	tags alias for tag
 	untag/unname command
 	command for adding tags to valid tag list
 status command
@@ -39,7 +38,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.6.4'
+__version__ = 'v1.6.5'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -317,7 +316,7 @@ class Tracker(cmdr.Cmdr):
 	"""
 
 	aliases = {'<': 'back', '<<': 'start', '>': 'forward', '>>': 'end', 'b': 'back', 'f': 'forward',
-		'ls': 'list', 'q': 'quit', 't': 'tag', 'u': 'update', 'v': 'view'}
+		'ls': 'list', 'q': 'quit', 't': 'tag', 'tags': 'tag', 'u': 'update', 'v': 'view'}
 	prompt = 'tracker >> '
 	valid_ranges = {'page_size': range(5, 100)}
 	word_re = re.compile('\w+')
