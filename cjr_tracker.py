@@ -37,7 +37,7 @@ import cmdr
 
 __author__ = 'Craig "Ichabod" O\'Brien'
 
-__version__ = 'v1.6.6'
+__version__ = 'v1.6.7a1'
 
 ACCESS_KWARGS = {'client_id': 'jy2JWMnhs2ZrSA', 'client_secret': 'LsnszIp9j_vVl9cvPDbEPemdyCg',
 	'user_agent': f'windows:cjr_tracker:{__version__} (by u/ichabod801)'}
@@ -323,6 +323,33 @@ class Tracker(cmdr.Cmdr):
 	prompt = 'tracker >> '
 	valid_ranges = {'page_size': range(5, 100)}
 	word_re = re.compile('\w+')
+
+	def do_add(self, arguments):
+		"""
+		Add a tag to the valid tag list. (a)
+		"""
+		categories = sorted(set(tag['category'] for tag in Post.all_tags.values()))
+		for category_index, category in enumerate(categories, start = 1):
+			print(f'{category_index}: {category}')
+		category_index = input('\nChoose a category: ')
+		category = categories[int(category_index) - 1]
+		current_parent = 'N/A'
+		parents = sorted(set(tag for tag, info in Post.all_tags.items() if info['category'] == category))
+		parents = [parent for parent in parents if Post.all_tags[parent]['parent'] == 'N/A']
+		while True:
+			if not parents:
+				break
+			print()
+			for parent_index, parent in enumerate(parents, start = 1):
+				print(f'{parent_index}: {parent}')
+			parent_index = input('\nChoose a parent (or return for {}): '.format(current_parent))
+			if not parent_index:
+				break
+			current_parent = parents[int(parent_index) - 1]
+			data = set(tag for tag, info in Post.all_tags.items() if info['parent'] == current_parent)
+			parents = sorted(data)
+		tag_id = len(Post.all_tags) + 1
+		Post.all_tags[arguments] = {'id': tag_id, 'category': category, 'parent': current_parent}
 
 	def do_back(self, arguments):
 		"""

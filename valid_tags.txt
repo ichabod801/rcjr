@@ -13,7 +13,7 @@ tag_id,category,parent,tag
 12,process,courts,death-penalty
 13,process,courts,defense-attorneys
 14,process,courts,diversion
-15,process,diversion,drug-treatment
+15,process,diversion,drug-rehab
 16,process,diversion,community-service
 17,process,courts,juries
 18,process,courts,plea-barganing
